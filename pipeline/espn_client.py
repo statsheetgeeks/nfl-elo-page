@@ -16,18 +16,41 @@ game if a field seems off).
 
 from __future__ import annotations
 import requests
+import time
 from datetime import datetime, timezone
 from typing import Optional, List, Dict, Any
 
 BASE = "https://site.api.espn.com/apis/site/v2/sports/football/nfl"
 TIMEOUT = 15
 
+# ESPN's edge (Akamai) rejects requests that look scripted - a generic or
+# custom User-Agent, missing Accept headers, etc. A realistic desktop
+# browser header set is enough; no cookies/session needed for these
+# public endpoints.
+_HEADERS = {
+    "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"),
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Referer": "https://www.espn.com/",
+    "Origin": "https://www.espn.com",
+}
 
-def _get(url: str, params: dict = None) -> dict:
-    resp = requests.get(url, params=params, timeout=TIMEOUT,
-                         headers={"User-Agent": "Mozilla/5.0 (nfl-elo-site)"})
-    resp.raise_for_status()
-    return resp.json()
+
+def _get(url: str, params: dict = None, retries: int = 3) -> dict:
+    last_err = None
+    for attempt in range(retries):
+        try:
+            resp = requests.get(url, params=params, timeout=TIMEOUT, headers=_HEADERS)
+            resp.raise_for_status()
+            return resp.json()
+        except requests.exceptions.HTTPError as e:
+            last_err = e
+            if resp.status_code in (403, 429) and attempt < retries - 1:
+                time.sleep(2 * (attempt + 1))
+                continue
+            raise
+    raise last_err
 
 
 def get_scoreboard(season: int, week: int, season_type: int = 2) -> dict:
