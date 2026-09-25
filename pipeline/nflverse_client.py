@@ -29,6 +29,13 @@ GAMES_URL = "https://raw.githubusercontent.com/nflverse/nfldata/master/data/game
 DEPTH_CHART_URL_TMPL = "https://github.com/nflverse/nflverse-data/releases/download/depth_charts/depth_charts_{year}.csv"
 
 
+def fetch_multiple_seasons(seasons: List[int]) -> pd.DataFrame:
+    """Full schedule for several seasons at once (used for the one-time
+    historical backfill - see build_site_data.bootstrap_history)."""
+    df = pd.read_csv(GAMES_URL, low_memory=False)
+    return df[df.season.isin(seasons)].copy()
+
+
 # ---------------------------------------------------------------- schedule
 def fetch_season_games(season: int) -> pd.DataFrame:
     """Full schedule for one season: every week, with scores populated

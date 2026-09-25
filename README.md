@@ -80,6 +80,37 @@ docs/                     the GitHub Pages site
   worth keeping for a Wednesday-morning surprise the source hasn't
   processed yet.
 
+## Historical backfill (fixes the "home team always wins" bug)
+
+The first time the pipeline ever runs (no `data/games_history.csv` yet),
+`bootstrap_history()` pulls the last `BACKFILL_SEASONS` (default 4) of
+completed regular-season games from nflverse and loads them in before the
+tracked season starts. This runs exactly once — after that, `sync_history()`
+just appends new games each week.
+
+**Why this was necessary**: without it, every team starts the tracked
+season at a flat, identical 1500 rating. After just 2 weeks of games, the
+entire league was spread across only ~44 rating points — smaller than the
+~55-point home-field bonus by itself. That meant the home-field bonus alone
+was often enough to flip who the model favored, regardless of how good the
+two teams actually were: it picked the home team in **15 of 15** games in
+Week 3, including Miami (a below-average team by 2 games of evidence) over
+Kansas City on the road. With 4 seasons of backfill, the league spread grows
+to ~165 points on the same date, and the model correctly favors Kansas City;
+Week 3 dropped to 12 of 15 home picks, which is a normal home-field split
+in the NFL, not a mechanical sweep.
+
+**This is an improvement, not a complete fix.** The model's edge for a
+game like KC @ MIA is still much smaller than what sportsbooks imply (we
+show something close to a toss-up; a market line might imply KC as a
+7-10 point favorite). That gap is expected: this is a pure Elo/G-Elo
+model working only from final scores, with no injury data beyond the
+starting QB, no roster/coaching context, and untuned `K`/home-field
+constants. Worth treating the model's probabilities as directionally
+useful rather than sharp early in a season, and revisiting `K`,
+`home_field_advantage`, and `BACKFILL_SEASONS` once there's a full season
+of graded predictions in `data/predictions_log.csv` to calibrate against.
+
 ## Combined rating
 
 `combined_ratings()` is currently a simple average of ClassicElo and GEloAC.

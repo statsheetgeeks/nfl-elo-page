@@ -37,7 +37,7 @@ from typing import Dict, List
 import numpy as np
 
 from model import ClassicElo, GEloAC
-from nflverse_client import games_for_week, fetch_depth_charts, get_starting_qb
+from nflverse_client import games_for_week, fetch_depth_charts, get_starting_qb, fetch_multiple_seasons
 from week_logic import determine_current_week
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -54,6 +54,17 @@ PRED_LOG_FIELDS = ["season", "week", "event_id", "home_team", "away_team",
 
 RATING_KWARGS = dict(k=20.0, home_field_advantage=55.0, regression_fraction=1 / 3)
 GELOAC_KWARGS = dict(thresholds=(5.0, 10.0), **RATING_KWARGS)
+
+# How many prior seasons to backfill the FIRST time the pipeline ever runs
+# (i.e. when data/games_history.csv doesn't exist yet). Without this, every
+# team starts a fresh season at a flat 1500 with zero prior information, so
+# in the first few weeks the ~55-point home-field bonus can outweigh the
+# tiny rating gap the model has actually had a chance to learn - which is
+# exactly what produced the "every home team wins" bug. Backfilling lets
+# real prior-season strength carry in through the normal season-to-season
+# regression already built into ClassicElo/GEloAC, instead of starting
+# blind. Only used once; after that, sync_history() just appends new games.
+BACKFILL_SEASONS = 4
 
 
 # ---------------------------------------------------------------- helpers
@@ -97,6 +108,27 @@ def current_nfl_season(today: datetime = None) -> int:
 
 
 # ---------------------------------------------------------- history sync
+def bootstrap_history(season: int) -> None:
+    """One-time only: if HISTORY_CSV doesn't exist yet, backfill
+    BACKFILL_SEASONS worth of completed prior-season games so the model
+    starts the tracked season with a real prior instead of a blind 1500
+    for every team. No-ops on every subsequent run."""
+    if os.path.exists(HISTORY_CSV):
+        return
+    prior_seasons = list(range(season - BACKFILL_SEASONS, season))
+    games = fetch_multiple_seasons(prior_seasons)
+    games = games[(games.game_type == "REG") & games.home_score.notna()]
+    games = games.sort_values(["season", "week"])
+
+    rows = [dict(season=int(r.season), week=int(r.week), event_id=r.game_id,
+                  date=r.gameday, home_team=r.home_team, away_team=r.away_team,
+                  home_score=int(r.home_score), away_score=int(r.away_score))
+            for _, r in games.iterrows()]
+    if rows:
+        _append_csv(HISTORY_CSV, HISTORY_FIELDS, rows)
+    print(f"Bootstrapped history with {len(rows)} games from seasons {prior_seasons}.")
+
+
 def sync_history(season: int, up_to_week: int, season_games) -> None:
     """Pull weeks 1..up_to_week from the already-fetched nflverse schedule
     and append any newly-completed games not already recorded in
@@ -276,6 +308,7 @@ def main():
     season = current_nfl_season()
     week, week_games, season_games = determine_current_week(season)
 
+    bootstrap_history(season)
     sync_history(season, up_to_week=week, season_games=season_games)
     grade_completed_predictions(season, week)
 
