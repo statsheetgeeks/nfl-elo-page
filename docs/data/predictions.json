@@ -1,7 +1,7 @@
 {
   "season": 2026,
   "week": 3,
-  "generated_at": "2026-09-25T04:34:24.230035+00:00",
+  "generated_at": "2026-09-25T05:16:31.304758+00:00",
   "games": [
     {
       "event_id": "2026_03_LAC_BUF",
@@ -11,7 +11,7 @@
       "home_qb": "Josh Allen",
       "away_qb": "Justin Herbert",
       "predicted_winner": "BUF",
-      "predicted_prob": 0.632
+      "predicted_prob": 0.674
     },
     {
       "event_id": "2026_03_CAR_CLE",
@@ -21,7 +21,7 @@
       "home_qb": "Deshaun Watson",
       "away_qb": "Bryce Young",
       "predicted_winner": "CLE",
-      "predicted_prob": 0.578
+      "predicted_prob": 0.567
     },
     {
       "event_id": "2026_03_NYJ_DET",
@@ -31,7 +31,7 @@
       "home_qb": "Jared Goff",
       "away_qb": "Geno Smith",
       "predicted_winner": "DET",
-      "predicted_prob": 0.567
+      "predicted_prob": 0.716
     },
     {
       "event_id": "2026_03_HOU_IND",
@@ -41,7 +41,7 @@
       "home_qb": "Daniel Jones",
       "away_qb": "C.J. Stroud",
       "predicted_winner": "IND",
-      "predicted_prob": 0.584
+      "predicted_prob": 0.513
     },
     {
       "event_id": "2026_03_NE_JAX",
@@ -51,7 +51,7 @@
       "home_qb": "Trevor Lawrence",
       "away_qb": "Drake Maye",
       "predicted_winner": "JAX",
-      "predicted_prob": 0.571
+      "predicted_prob": 0.577
     },
     {
       "event_id": "2026_03_KC_MIA",
@@ -60,8 +60,8 @@
       "away_team": "KC",
       "home_qb": "Malik Willis",
       "away_qb": "Patrick Mahomes",
-      "predicted_winner": "MIA",
-      "predicted_prob": 0.541
+      "predicted_winner": "KC",
+      "predicted_prob": 0.511
     },
     {
       "event_id": "2026_03_TEN_NYG",
@@ -71,7 +71,7 @@
       "home_qb": "Jameis Winston",
       "away_qb": "Cam Ward",
       "predicted_winner": "NYG",
-      "predicted_prob": 0.604
+      "predicted_prob": 0.64
     },
     {
       "event_id": "2026_03_CIN_PIT",
@@ -81,7 +81,7 @@
       "home_qb": "Aaron Rodgers",
       "away_qb": "Joe Burrow",
       "predicted_winner": "PIT",
-      "predicted_prob": 0.55
+      "predicted_prob": 0.589
     },
     {
       "event_id": "2026_03_SEA_WAS",
@@ -90,8 +90,8 @@
       "away_team": "SEA",
       "home_qb": "Jayden Daniels",
       "away_qb": "Sam Darnold",
-      "predicted_winner": "WAS",
-      "predicted_prob": 0.539
+      "predicted_winner": "SEA",
+      "predicted_prob": 0.574
     },
     {
       "event_id": "2026_03_ARI_SF",
@@ -101,7 +101,7 @@
       "home_qb": "Brock Purdy",
       "away_qb": "Jacoby Brissett",
       "predicted_winner": "SF",
-      "predicted_prob": 0.606
+      "predicted_prob": 0.712
     },
     {
       "event_id": "2026_03_MIN_TB",
@@ -110,8 +110,8 @@
       "away_team": "MIN",
       "home_qb": "Baker Mayfield",
       "away_qb": "Kyler Murray",
-      "predicted_winner": "TB",
-      "predicted_prob": 0.527
+      "predicted_winner": "MIN",
+      "predicted_prob": 0.51
     },
     {
       "event_id": "2026_03_BAL_DAL",
@@ -121,7 +121,7 @@
       "home_qb": "Dak Prescott",
       "away_qb": "Lamar Jackson",
       "predicted_winner": "DAL",
-      "predicted_prob": 0.579
+      "predicted_prob": 0.517
     },
     {
       "event_id": "2026_03_LV_NO",
@@ -131,7 +131,7 @@
       "home_qb": "Tyler Shough",
       "away_qb": "Kirk Cousins",
       "predicted_winner": "NO",
-      "predicted_prob": 0.564
+      "predicted_prob": 0.611
     },
     {
       "event_id": "2026_03_LA_DEN",
@@ -141,7 +141,7 @@
       "home_qb": "Bo Nix",
       "away_qb": "Matthew Stafford",
       "predicted_winner": "DEN",
-      "predicted_prob": 0.584
+      "predicted_prob": 0.587
     },
     {
       "event_id": "2026_03_PHI_CHI",
@@ -151,7 +151,7 @@
       "home_qb": "Caleb Williams",
       "away_qb": "Jalen Hurts",
       "predicted_winner": "CHI",
-      "predicted_prob": 0.563
+      "predicted_prob": 0.51
     }
   ]
 }
