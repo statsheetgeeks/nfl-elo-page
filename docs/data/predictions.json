@@ -1,0 +1,27 @@
+{
+  "season": 2026,
+  "week": 3,
+  "generated_at": "2026-09-23T21:00:00Z",
+  "games": [
+    {
+      "event_id": "e5",
+      "date": "2026-09-28T17:00Z",
+      "home_team": "BUF",
+      "away_team": "PHI",
+      "home_qb": "Josh Allen",
+      "away_qb": "Jalen Hurts",
+      "predicted_winner": "PHI",
+      "predicted_prob": 0.55
+    },
+    {
+      "event_id": "e6",
+      "date": "2026-09-28T17:00Z",
+      "home_team": "NYJ",
+      "away_team": "DAL",
+      "home_qb": "Justin Fields",
+      "away_qb": "Dak Prescott",
+      "predicted_winner": "DAL",
+      "predicted_prob": 0.61
+    }
+  ]
+}

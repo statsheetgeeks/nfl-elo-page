@@ -1,0 +1,6 @@
+{
+  "_comment": "Manual overrides for a team's starting QB, keyed by ESPN team abbreviation. Only needed when the live depth-chart lookup is wrong, stale, or a source hasn't updated yet (e.g. a Wednesday-morning surprise). Delete an entry once the live source catches up.",
+  "_example": {
+    "NYG": "Jameis Winston"
+  }
+}

@@ -1,0 +1,39 @@
+name: Update NFL Elo ratings
+
+on:
+  schedule:
+    # 17:00 US/Eastern. GitHub Actions cron is UTC and does not shift for
+    # daylight saving, so this covers EDT (UTC-4, most of the season);
+    # during EST (UTC-5) it will fire at 4pm ET instead of 5pm. If that
+    # matters, add a second cron line for the EST months or check the
+    # local time inside the job and no-op outside the intended hour.
+    - cron: "0 21 * * 3"
+  workflow_dispatch: {}   # manual "Run workflow" button / API / gh CLI
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Run pipeline
+        working-directory: pipeline
+        run: python build_site_data.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "nfl-elo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/ docs/data/
+          git diff --cached --quiet || git commit -m "Update ratings/predictions ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+          git push

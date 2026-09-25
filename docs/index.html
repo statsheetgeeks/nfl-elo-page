@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NFL Elo Rankings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-row">
+    <h1>NFL Elo</h1>
+    <span id="meta-line" class="meta-line">Loading&hellip;</span>
+  </div>
+</header>
+
+<main>
+
+  <section aria-labelledby="rankings-heading">
+    <h2 id="rankings-heading" class="section-heading">Rankings</h2>
+    <div class="rankings-grid" id="rankings-grid">
+      <!-- three <table-card> blocks injected by app.js -->
+    </div>
+  </section>
+
+  <section aria-labelledby="games-heading">
+    <div class="section-heading-row">
+      <h2 id="games-heading" class="section-heading">This week</h2>
+      <span id="games-subline" class="meta-line"></span>
+    </div>
+    <div class="games-list" id="games-list"></div>
+  </section>
+
+  <section aria-labelledby="performance-heading">
+    <h2 id="performance-heading" class="section-heading">Track record</h2>
+
+    <div class="stat-row" id="stat-row"></div>
+
+    <h3 class="subheading">Accuracy by confidence</h3>
+    <div class="bucket-list" id="bucket-list"></div>
+  </section>
+
+</main>
+
+<footer>
+  <span>Ratings recompute every Wednesday at 5pm, and after any manual run.</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
