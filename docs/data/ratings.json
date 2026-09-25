@@ -34,7 +34,7 @@
       "team": "BUF",
       "rating": 1515.8,
       "rank": 6,
-      "rank_change": -4
+      "rank_change": 0
     },
     {
       "team": "KC",
@@ -46,7 +46,7 @@
       "team": "PHI",
       "rating": 1510.9,
       "rank": 8,
-      "rank_change": -7
+      "rank_change": 0
     },
     {
       "team": "NO",
@@ -64,7 +64,7 @@
       "team": "NYJ",
       "rating": 1503.6,
       "rank": 11,
-      "rank_change": -8
+      "rank_change": 0
     },
     {
       "team": "DEN",
@@ -82,7 +82,7 @@
       "team": "DAL",
       "rating": 1500.0,
       "rank": 14,
-      "rank_change": -10
+      "rank_change": 0
     },
     {
       "team": "PIT",
@@ -581,5 +581,5 @@
       "rank_change": 0
     }
   ],
-  "updated_at": "2026-09-25T04:13:19.690605+00:00"
+  "updated_at": "2026-09-25T04:34:21.921753+00:00"
 }
