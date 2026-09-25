@@ -7,15 +7,14 @@ Monday Night Football has finished. Only then does a pipeline run advance
 to week N+1.
 
 State is persisted in data/state.json so we don't have to re-derive it
-from scratch (and re-fetch every prior week) on every run.
+from scratch on every run.
 """
 
 from __future__ import annotations
 import json
 import os
-from typing import Optional
 
-from espn_client import get_scoreboard, parse_games, week_is_complete
+from nflverse_client import fetch_season_games, games_for_week, week_is_complete
 
 STATE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "state.json")
 
@@ -33,28 +32,28 @@ def save_state(state: dict) -> None:
         json.dump(state, f, indent=2)
 
 
-def determine_current_week(season: int, season_type: int = 2,
-                            max_week: int = 18) -> tuple[int, list, bool]:
+def determine_current_week(season: int, game_type: str = "REG",
+                            max_week: int = 18):
     """
-    Returns (current_week, games_for_current_week, just_advanced).
+    Returns (current_week, games_for_current_week, season_games_df).
 
     Starts from the last known week in state.json (or week 1 if none
     recorded for this season). If that week is complete, advances one
     week at a time until it finds a week that is NOT fully complete (or
     hits max_week, i.e. end of regular season).
+
+    season_games_df is returned too so callers (build_site_data.py) don't
+    have to re-fetch the whole-season schedule a second time.
     """
     state = load_state()
-    week = state.get("season") == season and state.get("current_week") or 1
-    just_advanced = False
+    week = state.get("current_week", 1) if state.get("season") == season else 1
 
-    while week <= max_week:
-        scoreboard = get_scoreboard(season, week, season_type)
-        games = parse_games(scoreboard)
-        if week_is_complete(games) and week < max_week:
-            week += 1
-            just_advanced = True
-            continue
-        break
+    season_games = fetch_season_games(season)
+    games = games_for_week(season_games, week, game_type)
+
+    while week_is_complete(games) and week < max_week:
+        week += 1
+        games = games_for_week(season_games, week, game_type)
 
     save_state({"season": season, "current_week": week})
-    return week, games, just_advanced
+    return week, games, season_games

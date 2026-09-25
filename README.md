@@ -39,7 +39,7 @@ breakdown.
 ```
 pipeline/
   model.py              ClassicElo + GEloAC rating engines
-  espn_client.py        ESPN public JSON endpoints: schedule/scores, starting QB, injuries
+  nflverse_client.py     schedule/scores + starting-QB data (see "Data sources" below)
   week_logic.py          "has the week finished?" rollover rule
   build_site_data.py     orchestrator: sync history -> replay ratings -> grade
                           last week's predictions -> build this week's
@@ -59,19 +59,26 @@ docs/                     the GitHub Pages site
 
 ## Data sources and known rough edges
 
-- **Scores/schedule**: ESPN's public (unofficial) scoreboard JSON. Reliable
-  and free, but undocumented — if ESPN changes response shape, `parse_games`
-  is the one place to fix it.
-- **Starting QB**: pulled from ESPN's team depth-chart endpoint. This is the
-  part most likely to need a look on the very first live run — the exact
-  JSON path for "who's QB1" has shifted before. If a card shows "TBD" for a
-  team that clearly has a known starter, check `espn_client.get_starting_qb`
-  against a real response for that team.
-- **Manual overrides**: `pipeline/starter_overrides.json` lets you hard-set
-  a team's starter (e.g. `{"NYG": "Jameis Winston"}`) for cases where the
-  live source is wrong or hasn't updated yet — exactly the Dart/Winston
-  situation that prompted this feature. Remove the override once the live
-  source catches up.
+- **Scores/schedule**: `nflverse/nfldata`'s `games.csv`, hosted on
+  `raw.githubusercontent.com`. This *replaces* an earlier version that used
+  ESPN's live site API directly — that got a hard 403 from every request
+  made by a GitHub Actions runner (confirmed even with realistic browser
+  headers, so it's an IP-range block on Azure's ranges, not a header/UA
+  check). nflverse's data is republished on GitHub itself, so Actions
+  runners have no trouble reaching it. Verified fresh (same-day score
+  updates) as of this build.
+- **Starting QB**: `nflverse-data`'s per-season depth-chart scrape
+  (`depth_charts_{year}.csv`, a GitHub Release asset), refreshed multiple
+  times a day. **This was verified against a live, real situation**: the
+  pipeline correctly returned Jameis Winston (not Jaxson Dart) as the
+  Giants' Week 3 starter after Dart's Week 2 knee injury — the exact
+  scenario that prompted building this feature.
+- **Manual overrides**: `pipeline/starter_overrides.json` still exists as a
+  safety net for the rare case where even this fast-refreshing source
+  hasn't caught up yet (e.g. `{"NYG": "Jameis Winston"}`). Not currently
+  needed — the live source already got the Dart/Winston case right — but
+  worth keeping for a Wednesday-morning surprise the source hasn't
+  processed yet.
 
 ## Combined rating
 
@@ -80,14 +87,15 @@ That's a placeholder worth revisiting once there's enough graded-prediction
 history to justify a weighted blend (e.g. weight whichever engine is
 currently better calibrated in `predictions_log.csv`).
 
-## Testing locally without hitting ESPN
+## Testing performed
 
-`pipeline/build_site_data.py`'s network calls (`sync_history`,
-`get_starting_qb`, `determine_current_week`) need outbound internet, which
-this dev environment didn't have. Everything else — rating replay,
-Combined-rating blending, rank-change arrows, and prediction grading — was
-verified locally by writing rows directly into `data/games_history.csv` and
-a fake `docs/data/predictions.json`, then calling `replay_ratings()`,
-`build_rankings()`, and `grade_completed_predictions()` directly. Worth
-doing a similar dry run yourself (or just watching the first Actions run's
-logs closely) to confirm the ESPN parsing holds up against live data.
+The full pipeline (`pipeline/build_site_data.py`) was run end-to-end
+against **live nflverse data** — not just synthetic/mocked data — during
+development: it correctly fetched the real 2026 season schedule, synced 34
+completed games from weeks 1–2 into `data/games_history.csv`, computed
+ratings, and built Week 3 predictions with correct real starting QBs for
+every game (Mahomes, Herbert, Allen, Stroud, etc.), including the
+Dart→Winston case above. The one thing that could NOT be verified from a
+dev sandbox is the GitHub Actions environment itself (network egress
+rules, commit permissions) — that's confirmed by your Actions run
+succeeding end to end.

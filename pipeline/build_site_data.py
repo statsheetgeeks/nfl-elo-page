@@ -37,7 +37,7 @@ from typing import Dict, List
 import numpy as np
 
 from model import ClassicElo, GEloAC
-from espn_client import get_scoreboard, parse_games, get_starting_qb, get_team_injuries
+from nflverse_client import games_for_week, fetch_depth_charts, get_starting_qb
 from week_logic import determine_current_week
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -97,16 +97,16 @@ def current_nfl_season(today: datetime = None) -> int:
 
 
 # ---------------------------------------------------------- history sync
-def sync_history(season: int, up_to_week: int, season_type: int = 2) -> None:
-    """Fetch weeks 1..up_to_week and append any newly-completed games
-    not already recorded in HISTORY_CSV."""
+def sync_history(season: int, up_to_week: int, season_games) -> None:
+    """Pull weeks 1..up_to_week from the already-fetched nflverse schedule
+    and append any newly-completed games not already recorded in
+    HISTORY_CSV."""
     existing = _read_csv(HISTORY_CSV, HISTORY_FIELDS)
     known_ids = {row["event_id"] for row in existing}
 
     new_rows = []
     for week in range(1, up_to_week + 1):
-        scoreboard = get_scoreboard(season, week, season_type)
-        for g in parse_games(scoreboard):
+        for g in games_for_week(season_games, week):
             if g["completed"] and g["event_id"] not in known_ids:
                 new_rows.append(dict(season=season, week=week, event_id=g["event_id"],
                                       date=g["date"], home_team=g["home_abbrev"],
@@ -222,7 +222,7 @@ def grade_completed_predictions(season: int, current_week: int) -> None:
 
 
 def build_predictions(season: int, week: int, week_games: List[dict],
-                       ratings: Dict[str, float]) -> dict:
+                       ratings: Dict[str, float], depth_charts) -> dict:
     overrides = _load_overrides()
     games_out = []
     for g in week_games:
@@ -233,8 +233,8 @@ def build_predictions(season: int, week: int, week_games: List[dict],
         predicted_winner = home if p_home >= 0.5 else away
         predicted_prob = p_home if p_home >= 0.5 else 1 - p_home
 
-        home_qb = overrides.get(home) or get_starting_qb(home) or "TBD"
-        away_qb = overrides.get(away) or get_starting_qb(away) or "TBD"
+        home_qb = overrides.get(home) or get_starting_qb(depth_charts, home) or "TBD"
+        away_qb = overrides.get(away) or get_starting_qb(depth_charts, away) or "TBD"
 
         games_out.append(dict(
             event_id=g["event_id"], date=g["date"],
@@ -274,9 +274,9 @@ def build_performance(season: int, current_week: int) -> dict:
 # ---------------------------------------------------------------- main
 def main():
     season = current_nfl_season()
-    week, week_games, _ = determine_current_week(season)
+    week, week_games, season_games = determine_current_week(season)
 
-    sync_history(season, up_to_week=week)
+    sync_history(season, up_to_week=week, season_games=season_games)
     grade_completed_predictions(season, week)
 
     classic, geloac = replay_ratings()
@@ -295,7 +295,8 @@ def main():
         geloac=build_rankings(geloac.ratings),
         updated_at=datetime.now(timezone.utc).isoformat(),
     )
-    predictions_out = build_predictions(season, week, week_games, combined)
+    depth_charts = fetch_depth_charts(season)
+    predictions_out = build_predictions(season, week, week_games, combined, depth_charts)
     performance_out = build_performance(season, week)
     meta_out = dict(season=season, current_week=week,
                      updated_at=datetime.now(timezone.utc).isoformat())
