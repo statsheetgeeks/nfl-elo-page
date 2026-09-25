@@ -35,10 +35,12 @@ from datetime import datetime, timezone
 from typing import Dict, List
 
 import numpy as np
+import pandas as pd
 
 from model import ClassicElo, GEloAC
 from nflverse_client import games_for_week, fetch_depth_charts, get_starting_qb, fetch_multiple_seasons
 from week_logic import determine_current_week
+import ml_elo
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 DATA_DIR = os.path.join(ROOT, "data")
@@ -48,20 +50,19 @@ PRED_LOG_CSV = os.path.join(DATA_DIR, "predictions_log.csv")
 OVERRIDES_JSON = os.path.join(os.path.dirname(__file__), "starter_overrides.json")
 
 HISTORY_FIELDS = ["season", "week", "event_id", "date", "home_team", "away_team",
-                   "home_score", "away_score"]
+                   "home_score", "away_score", "home_rest", "away_rest"]
 PRED_LOG_FIELDS = ["season", "week", "event_id", "home_team", "away_team",
                     "predicted_winner", "predicted_prob", "actual_winner", "correct"]
 
-RATING_KWARGS = dict(k=20.0, home_field_advantage=55.0, regression_fraction=1 / 3)
-GELOAC_KWARGS = dict(thresholds=(5.0, 10.0), **RATING_KWARGS)
+RATING_KWARGS_BASE = dict(k=20.0, regression_fraction=1 / 3)  # home_field_advantage added after calibration
 
 # How many prior seasons to backfill the FIRST time the pipeline ever runs
 # (i.e. when data/games_history.csv doesn't exist yet). Without this, every
 # team starts a fresh season at a flat 1500 with zero prior information, so
-# in the first few weeks the ~55-point home-field bonus can outweigh the
-# tiny rating gap the model has actually had a chance to learn - which is
-# exactly what produced the "every home team wins" bug. Backfilling lets
-# real prior-season strength carry in through the normal season-to-season
+# in the first few weeks the home-field bonus can outweigh the tiny rating
+# gap the model has actually had a chance to learn - which is exactly what
+# produced the "every home team wins" bug. Backfilling lets real
+# prior-season strength carry in through the normal season-to-season
 # regression already built into ClassicElo/GEloAC, instead of starting
 # blind. Only used once; after that, sync_history() just appends new games.
 BACKFILL_SEASONS = 4
@@ -122,7 +123,9 @@ def bootstrap_history(season: int) -> None:
 
     rows = [dict(season=int(r.season), week=int(r.week), event_id=r.game_id,
                   date=r.gameday, home_team=r.home_team, away_team=r.away_team,
-                  home_score=int(r.home_score), away_score=int(r.away_score))
+                  home_score=int(r.home_score), away_score=int(r.away_score),
+                  home_rest=int(r.home_rest) if pd.notna(r.get("home_rest")) else 7,
+                  away_rest=int(r.away_rest) if pd.notna(r.get("away_rest")) else 7)
             for _, r in games.iterrows()]
     if rows:
         _append_csv(HISTORY_CSV, HISTORY_FIELDS, rows)
@@ -143,21 +146,67 @@ def sync_history(season: int, up_to_week: int, season_games) -> None:
                 new_rows.append(dict(season=season, week=week, event_id=g["event_id"],
                                       date=g["date"], home_team=g["home_abbrev"],
                                       away_team=g["away_abbrev"],
-                                      home_score=g["home_score"], away_score=g["away_score"]))
+                                      home_score=g["home_score"], away_score=g["away_score"],
+                                      home_rest=g["home_rest"], away_rest=g["away_rest"]))
     if new_rows:
         _append_csv(HISTORY_CSV, HISTORY_FIELDS, new_rows)
 
 
+# ---------------------------------------------------------- HFA calibration
+def fit_home_field_advantage(history: List[dict], k: float = 20.0) -> float:
+    """
+    Empirically calibrates the home-field-advantage constant from real
+    history, instead of assuming a fixed value. Runs a neutral-field
+    (hfa=0) ClassicElo pass to get each game's pre-game rating gap, then
+    finds the single additive constant (in Elo points) that best predicts
+    the actual home/away outcomes via maximum likelihood.
+
+    Why this exists: a hardcoded guess (~55 points, from a rule of thumb
+    in the literature) turned out to be too large for this model's actual
+    rating scale - large enough that it was overriding real, meaningful
+    rating gaps (e.g. picking a mediocre home team over a genuinely
+    stronger visiting team). Recalibrating from data fixes that, and keeps
+    fixing it automatically as more of the season accumulates.
+    """
+    from scipy.optimize import minimize_scalar
+
+    neutral = ClassicElo(k=k, home_field_advantage=0.0, regression_fraction=1 / 3)
+    z_values, outcomes = [], []
+    for row in history:
+        home, away = row["home_team"], row["away_team"]
+        hs, as_ = int(row["home_score"]), int(row["away_score"])
+        z_values.append(neutral.get_rating(home) - neutral.get_rating(away))
+        outcomes.append(1.0 if hs > as_ else (0.0 if hs < as_ else 0.5))
+        neutral.process_game(int(row["season"]), int(row["week"]), row["date"], home, away, hs, as_)
+
+    if not z_values:
+        return 55.0  # no history yet (shouldn't happen after bootstrap) - fall back to the old guess
+
+    z_values = np.array(z_values)
+    outcomes = np.array(outcomes)
+
+    def neg_log_likelihood(hfa):
+        p = 1.0 / (1.0 + 10 ** (-(z_values + hfa) / 400.0))
+        p = np.clip(p, 1e-9, 1 - 1e-9)
+        return -np.sum(outcomes * np.log(p) + (1 - outcomes) * np.log(1 - p))
+
+    result = minimize_scalar(neg_log_likelihood, bounds=(-50, 150), method="bounded")
+    return float(result.x)
+
+
 # ---------------------------------------------------------- rating replay
-def replay_ratings():
+def replay_ratings(home_field_advantage: float):
     """Runs ClassicElo and a freshly-refit GEloAC over the full recorded
     history, in chronological order. Returns (classic, geloac)."""
     history = _read_csv(HISTORY_CSV, HISTORY_FIELDS)
     history.sort(key=lambda r: (int(r["season"]), int(r["week"])))
 
+    rating_kwargs = dict(**RATING_KWARGS_BASE, home_field_advantage=home_field_advantage)
+    geloac_kwargs = dict(thresholds=(5.0, 10.0), **rating_kwargs)
+
     # Pass 1: ClassicElo, also collecting (z, category) pairs for GEloAC fitting.
-    classic = ClassicElo(**RATING_KWARGS)
-    geloac_template = GEloAC(**GELOAC_KWARGS)
+    classic = ClassicElo(**rating_kwargs)
+    geloac_template = GEloAC(**geloac_kwargs)
     z_values, categories = [], []
     for row in history:
         home, away = row["home_team"], row["away_team"]
@@ -173,7 +222,7 @@ def replay_ratings():
         geloac_template.fit(np.array(z_values), np.array(categories))
 
     # Pass 2: GEloAC online, using its freshly-fit coefficients throughout.
-    geloac = GEloAC(**GELOAC_KWARGS)
+    geloac = GEloAC(**geloac_kwargs)
     geloac.alpha, geloac.delta = geloac_template.alpha, geloac_template.delta
     geloac.delta_tilde = geloac_template.delta_tilde
     for row in history:
@@ -195,7 +244,7 @@ def combined_ratings(classic: ClassicElo, geloac: GEloAC) -> Dict[str, float]:
 
 
 def win_probability_from_ratings(ratings: Dict[str, float], home: str, away: str,
-                                  hfa: float = 55.0) -> float:
+                                  hfa: float) -> float:
     z = (ratings.get(home, 1500.0) + hfa) - ratings.get(away, 1500.0)
     return 1.0 / (1.0 + 10 ** (-z / 400.0))
 
@@ -254,14 +303,14 @@ def grade_completed_predictions(season: int, current_week: int) -> None:
 
 
 def build_predictions(season: int, week: int, week_games: List[dict],
-                       ratings: Dict[str, float], depth_charts) -> dict:
+                       ratings: Dict[str, float], depth_charts, hfa: float) -> dict:
     overrides = _load_overrides()
     games_out = []
     for g in week_games:
         if g["completed"]:
             continue  # only forecast games not yet played
         home, away = g["home_abbrev"], g["away_abbrev"]
-        p_home = win_probability_from_ratings(ratings, home, away)
+        p_home = win_probability_from_ratings(ratings, home, away, hfa)
         predicted_winner = home if p_home >= 0.5 else away
         predicted_prob = p_home if p_home >= 0.5 else 1 - p_home
 
@@ -312,7 +361,12 @@ def main():
     sync_history(season, up_to_week=week, season_games=season_games)
     grade_completed_predictions(season, week)
 
-    classic, geloac = replay_ratings()
+    history = _read_csv(HISTORY_CSV, HISTORY_FIELDS)
+    history.sort(key=lambda r: (int(r["season"]), int(r["week"])))
+    hfa = fit_home_field_advantage(history, k=RATING_KWARGS_BASE["k"])
+    print(f"Calibrated home_field_advantage: {hfa:.1f} Elo points")
+
+    classic, geloac = replay_ratings(home_field_advantage=hfa)
     combined = combined_ratings(classic, geloac)
 
     prior_ratings = None
@@ -328,10 +382,22 @@ def main():
         geloac=build_rankings(geloac.ratings),
         updated_at=datetime.now(timezone.utc).isoformat(),
     )
+
+    # ML Elo: fourth column, watched alongside the other three rather than
+    # feeding into Combined (yet) - see README for the evaluation plan.
+    ml_model = ml_elo.fit_ml_elo(history, k=RATING_KWARGS_BASE["k"])
+    ml_ratings = ml_elo.replay_ml_elo(history, ml_model, k=RATING_KWARGS_BASE["k"])
+    prior_ml_ratings = None
+    if os.path.exists(ratings_path):
+        with open(ratings_path) as f:
+            prior = json.load(f)
+            prior_ml_ratings = {r["team"]: r["rating"] for r in prior.get("mlelo", [])}
+    ratings_out["mlelo"] = build_rankings(ml_ratings, prior_ml_ratings)
+
     depth_charts = fetch_depth_charts(season)
-    predictions_out = build_predictions(season, week, week_games, combined, depth_charts)
+    predictions_out = build_predictions(season, week, week_games, combined, depth_charts, hfa)
     performance_out = build_performance(season, week)
-    meta_out = dict(season=season, current_week=week,
+    meta_out = dict(season=season, current_week=week, home_field_advantage=round(hfa, 1),
                      updated_at=datetime.now(timezone.utc).isoformat())
 
     _write_json(os.path.join(DOCS_DATA_DIR, "ratings.json"), ratings_out)

@@ -96,11 +96,15 @@ section { margin-bottom: 48px; }
 
 .rankings-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
   gap: 14px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
+  .rankings-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 560px) {
   .rankings-grid { grid-template-columns: 1fr; }
 }
 

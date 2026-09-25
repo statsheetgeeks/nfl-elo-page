@@ -40,6 +40,7 @@ breakdown.
 pipeline/
   model.py              ClassicElo + GEloAC rating engines
   nflverse_client.py     schedule/scores + starting-QB data (see "Data sources" below)
+  ml_elo.py               ML Elo: logistic-regression-tuned expected-score function
   week_logic.py          "has the week finished?" rollover rule
   build_site_data.py     orchestrator: sync history -> replay ratings -> grade
                           last week's predictions -> build this week's
@@ -110,6 +111,52 @@ constants. Worth treating the model's probabilities as directionally
 useful rather than sharp early in a season, and revisiting `K`,
 `home_field_advantage`, and `BACKFILL_SEASONS` once there's a full season
 of graded predictions in `data/predictions_log.csv` to calibrate against.
+
+## ML Elo (fourth ranking column)
+
+`pipeline/ml_elo.py` adds a fourth rating alongside Combined/Classic/G-Elo.
+Structurally it's still an Elo-style rating (same `theta += k*(observed -
+expected)` update loop), but `expected` comes from a **fitted logistic
+regression** instead of a fixed formula. Features: the live rating
+difference, rest-day differential, trailing-5-game point-differential
+("form") difference, and season win-percentage difference. The regression
+is refit from scratch every run (same bootstrap-then-fit-then-replay
+pattern as G-Elo's coefficients), so it keeps adapting as the season goes.
+
+It's deliberately a small model — regularized logistic regression, not a
+gradient-boosted tree — since with ~1,000-1,500 games and 4 features, a
+linear model is far less likely to overfit. Sanity-checked the fitted
+coefficients on real data: positive weight on rating difference, rest
+advantage, and recent form (all directionally correct), with the
+intercept absorbing a home-field effect on its own rather than needing a
+separate constant.
+
+**Currently NOT used for the live predictions** — Combined still drives
+`docs/data/predictions.json`, exactly as before. ML Elo is meant to be
+watched for a few weeks (via `predictions_log.csv`-style grading, not yet
+wired up for it specifically) before deciding whether it's earned a role
+in what actually generates picks. Worth adding a per-column entry to
+`performance.json` down the line so all four can be compared on the same
+accuracy/calibration basis, the same way we validated G-Elo against plain
+Elo earlier in this project.
+
+## Home-field advantage is now calibrated, not guessed
+
+`fit_home_field_advantage()` replaces the earlier hardcoded `55.0` Elo-point
+constant. It runs a neutral-field (no home bonus) Elo pass over history to
+get each game's real pre-game rating gap, then fits the single additive
+constant that best predicts actual home/away outcomes via maximum
+likelihood — the same kind of calibration already used for GEloAC's `K`.
+
+**Why this needed fixing too**: even after the backfill fix above, some
+picks were still off — e.g. Baltimore (a top-10 team by a real 43-point
+rating gap) was still losing the tiebreak to a mediocre Dallas team simply
+from the home bonus. The `55`-point guess, taken from a rule of thumb in
+the literature, turned out too large for this model's actual rating scale.
+The calibrated value came out to **~33 points** on real data — recalibrated
+automatically every run, so it keeps correcting itself as the season's
+evidence grows. `meta.json` now reports the fitted value
+(`home_field_advantage`) each week for visibility.
 
 ## Combined rating
 

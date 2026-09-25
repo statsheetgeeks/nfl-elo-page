@@ -48,7 +48,8 @@ def games_for_week(season_games: pd.DataFrame, week: int,
                     game_type: str = "REG") -> List[Dict[str, Any]]:
     """Same shape as the old espn_client.parse_games(), so the rest of the
     pipeline doesn't need to change: one dict per game with
-    {event_id, date, home_team, away_team, home_score, away_score, completed}."""
+    {event_id, date, home_team, away_team, home_score, away_score, completed,
+     home_rest, away_rest}. Rest days are used as an ML-Elo feature."""
     wk = season_games[(season_games.week == week) & (season_games.game_type == game_type)]
     games = []
     for _, r in wk.iterrows():
@@ -61,6 +62,8 @@ def games_for_week(season_games: pd.DataFrame, week: int,
             home_score=int(r.home_score) if completed else None,
             away_score=int(r.away_score) if completed else None,
             completed=bool(completed),
+            home_rest=int(r.home_rest) if pd.notna(r.get("home_rest")) else 7,
+            away_rest=int(r.away_rest) if pd.notna(r.get("away_rest")) else 7,
         ))
     return games
 

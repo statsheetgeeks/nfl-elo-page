@@ -79,6 +79,7 @@ function renderRankings(ratings) {
   renderRankingCard(grid, { title: "Combined", rows: ratings.combined, primary: true });
   renderRankingCard(grid, { title: "Classic Elo", rows: ratings.classic });
   renderRankingCard(grid, { title: "G-Elo (MOV)", rows: ratings.geloac });
+  renderRankingCard(grid, { title: "ML Elo", rows: ratings.mlelo });
 }
 
 /* ---------------- games ---------------- */
