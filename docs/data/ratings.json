@@ -1,116 +1,116 @@
 {
   "combined": [
     {
-      "team": "SEA",
-      "rating": 1572.7,
-      "rank": 1,
-      "rank_change": 0
-    },
-    {
       "team": "BUF",
-      "rating": 1571.2,
-      "rank": 2,
-      "rank_change": 0
+      "rating": 1577.0,
+      "rank": 1,
+      "rank_change": 1
     },
     {
-      "team": "PHI",
-      "rating": 1555.7,
-      "rank": 3,
-      "rank_change": 0
+      "team": "SEA",
+      "rating": 1565.0,
+      "rank": 2,
+      "rank_change": -1
     },
     {
       "team": "DEN",
-      "rating": 1549.1,
+      "rating": 1553.9,
+      "rank": 3,
+      "rank_change": 1
+    },
+    {
+      "team": "MIN",
+      "rating": 1552.9,
       "rank": 4,
-      "rank_change": 0
+      "rank_change": 2
     },
     {
       "team": "SF",
-      "rating": 1545.8,
+      "rating": 1550.6,
       "rank": 5,
       "rank_change": 0
     },
     {
-      "team": "MIN",
-      "rating": 1545.0,
+      "team": "PHI",
+      "rating": 1545.4,
       "rank": 6,
-      "rank_change": 0
-    },
-    {
-      "team": "LA",
-      "rating": 1541.5,
-      "rank": 7,
-      "rank_change": 0
+      "rank_change": -3
     },
     {
       "team": "DET",
-      "rating": 1538.7,
+      "rating": 1543.4,
+      "rank": 7,
+      "rank_change": 1
+    },
+    {
+      "team": "LA",
+      "rating": 1536.9,
       "rank": 8,
-      "rank_change": 0
+      "rank_change": -1
     },
     {
       "team": "BAL",
-      "rating": 1530.7,
+      "rating": 1536.3,
       "rank": 9,
       "rank_change": 0
     },
     {
-      "team": "NE",
-      "rating": 1530.1,
-      "rank": 10,
-      "rank_change": 0
-    },
-    {
       "team": "JAX",
-      "rating": 1527.3,
-      "rank": 11,
-      "rank_change": 0
+      "rating": 1536.2,
+      "rank": 10,
+      "rank_change": 1
     },
     {
       "team": "KC",
-      "rating": 1525.9,
-      "rank": 12,
-      "rank_change": 0
-    },
-    {
-      "team": "HOU",
-      "rating": 1519.7,
-      "rank": 13,
-      "rank_change": 0
+      "rating": 1534.8,
+      "rank": 11,
+      "rank_change": 1
     },
     {
       "team": "PIT",
-      "rating": 1517.3,
-      "rank": 14,
-      "rank_change": 0
+      "rating": 1522.1,
+      "rank": 12,
+      "rank_change": 2
     },
     {
-      "team": "CIN",
-      "rating": 1508.3,
+      "team": "NE",
+      "rating": 1521.1,
+      "rank": 13,
+      "rank_change": -3
+    },
+    {
+      "team": "CHI",
+      "rating": 1518.3,
+      "rank": 14,
+      "rank_change": 3
+    },
+    {
+      "team": "HOU",
+      "rating": 1513.4,
       "rank": 15,
-      "rank_change": 0
+      "rank_change": -2
     },
     {
       "team": "GB",
-      "rating": 1508.0,
+      "rating": 1508.3,
       "rank": 16,
       "rank_change": 0
     },
     {
-      "team": "CHI",
-      "rating": 1507.9,
+      "team": "CIN",
+      "rating": 1503.8,
       "rank": 17,
-      "rank_change": 0
+      "rank_change": -2
     },
     {
       "team": "LAC",
-      "rating": 1500.7,
+      "rating": 1495.0,
       "rank": 18,
       "rank_change": 0
     },
     {
       "team": "DAL",
-      "rating": 1488.3,
+      "rating": 1482.4,
       "rank": 19,
       "rank_change": 0
     },
@@ -121,268 +121,268 @@
       "rank_change": 0
     },
     {
-      "team": "TB",
-      "rating": 1479.2,
-      "rank": 21,
-      "rank_change": 0
-    },
-    {
       "team": "IND",
-      "rating": 1470.6,
-      "rank": 22,
-      "rank_change": 0
-    },
-    {
-      "team": "NO",
-      "rating": 1468.8,
-      "rank": 23,
-      "rank_change": 0
-    },
-    {
-      "team": "MIA",
-      "rating": 1463.6,
-      "rank": 24,
-      "rank_change": 0
+      "rating": 1476.7,
+      "rank": 21,
+      "rank_change": 1
     },
     {
       "team": "WAS",
-      "rating": 1463.3,
-      "rank": 25,
-      "rank_change": 0
+      "rating": 1471.4,
+      "rank": 22,
+      "rank_change": 3
     },
     {
-      "team": "CAR",
-      "rating": 1462.0,
-      "rank": 26,
-      "rank_change": 0
+      "team": "TB",
+      "rating": 1471.2,
+      "rank": 23,
+      "rank_change": -2
     },
     {
-      "team": "CLE",
-      "rating": 1452.2,
-      "rank": 27,
-      "rank_change": 0
+      "team": "NO",
+      "rating": 1458.7,
+      "rank": 24,
+      "rank_change": -1
     },
     {
       "team": "LV",
-      "rating": 1447.6,
+      "rating": 1458.0,
+      "rank": 25,
+      "rank_change": 3
+    },
+    {
+      "team": "CLE",
+      "rating": 1457.5,
+      "rank": 26,
+      "rank_change": 1
+    },
+    {
+      "team": "CAR",
+      "rating": 1457.0,
+      "rank": 27,
+      "rank_change": -1
+    },
+    {
+      "team": "MIA",
+      "rating": 1454.4,
       "rank": 28,
-      "rank_change": 0
+      "rank_change": -4
     },
     {
       "team": "NYG",
-      "rating": 1446.3,
+      "rating": 1449.8,
       "rank": 29,
       "rank_change": 0
     },
     {
       "team": "ARI",
-      "rating": 1444.3,
+      "rating": 1439.5,
       "rank": 30,
       "rank_change": 0
     },
     {
       "team": "NYJ",
-      "rating": 1435.4,
+      "rating": 1430.6,
       "rank": 31,
       "rank_change": 0
     },
     {
       "team": "TEN",
-      "rating": 1401.7,
+      "rating": 1397.7,
       "rank": 32,
       "rank_change": 0
     }
   ],
   "classic": [
     {
-      "team": "SEA",
-      "rating": 1585.4,
+      "team": "BUF",
+      "rating": 1589.1,
       "rank": 1,
       "rank_change": 0
     },
     {
-      "team": "BUF",
-      "rating": 1582.2,
+      "team": "SEA",
+      "rating": 1572.9,
       "rank": 2,
       "rank_change": 0
     },
     {
-      "team": "PHI",
-      "rating": 1572.4,
+      "team": "DEN",
+      "rating": 1571.2,
       "rank": 3,
       "rank_change": 0
     },
     {
-      "team": "DEN",
-      "rating": 1562.9,
+      "team": "MIN",
+      "rating": 1564.5,
       "rank": 4,
       "rank_change": 0
     },
     {
-      "team": "MIN",
-      "rating": 1555.8,
+      "team": "PHI",
+      "rating": 1561.7,
       "rank": 5,
       "rank_change": 0
     },
     {
       "team": "SF",
-      "rating": 1551.1,
+      "rating": 1556.9,
       "rank": 6,
       "rank_change": 0
     },
     {
       "team": "DET",
-      "rating": 1544.5,
+      "rating": 1550.4,
       "rank": 7,
       "rank_change": 0
     },
     {
-      "team": "LA",
-      "rating": 1540.0,
+      "team": "JAX",
+      "rating": 1535.3,
       "rank": 8,
       "rank_change": 0
     },
     {
-      "team": "NE",
-      "rating": 1528.9,
+      "team": "PIT",
+      "rating": 1534.9,
       "rank": 9,
       "rank_change": 0
     },
     {
-      "team": "PIT",
-      "rating": 1526.5,
+      "team": "KC",
+      "rating": 1533.4,
       "rank": 10,
       "rank_change": 0
     },
     {
-      "team": "JAX",
-      "rating": 1526.2,
+      "team": "LA",
+      "rating": 1531.6,
       "rank": 11,
       "rank_change": 0
     },
     {
-      "team": "HOU",
-      "rating": 1525.4,
+      "team": "BAL",
+      "rating": 1531.1,
       "rank": 12,
       "rank_change": 0
     },
     {
-      "team": "KC",
-      "rating": 1524.1,
+      "team": "NE",
+      "rating": 1519.8,
       "rank": 13,
       "rank_change": 0
     },
     {
-      "team": "BAL",
-      "rating": 1520.9,
+      "team": "CHI",
+      "rating": 1519.1,
       "rank": 14,
       "rank_change": 0
     },
     {
-      "team": "GB",
-      "rating": 1510.9,
+      "team": "HOU",
+      "rating": 1514.5,
       "rank": 15,
       "rank_change": 0
     },
     {
-      "team": "CHI",
-      "rating": 1508.3,
+      "team": "GB",
+      "rating": 1511.0,
       "rank": 16,
       "rank_change": 0
     },
     {
       "team": "LAC",
-      "rating": 1504.2,
+      "rating": 1497.2,
       "rank": 17,
       "rank_change": 0
     },
     {
       "team": "CIN",
-      "rating": 1504.0,
+      "rating": 1495.7,
       "rank": 18,
       "rank_change": 0
     },
     {
       "team": "DAL",
-      "rating": 1488.9,
+      "rating": 1478.8,
       "rank": 19,
       "rank_change": 0
     },
     {
       "team": "ATL",
-      "rating": 1478.6,
+      "rating": 1478.7,
       "rank": 20,
       "rank_change": 0
     },
     {
-      "team": "TB",
-      "rating": 1471.4,
+      "team": "IND",
+      "rating": 1473.9,
       "rank": 21,
       "rank_change": 0
     },
     {
-      "team": "MIA",
-      "rating": 1465.6,
+      "team": "WAS",
+      "rating": 1470.3,
       "rank": 22,
       "rank_change": 0
     },
     {
-      "team": "CAR",
-      "rating": 1465.2,
+      "team": "TB",
+      "rating": 1462.8,
       "rank": 23,
       "rank_change": 0
     },
     {
-      "team": "IND",
-      "rating": 1463.2,
+      "team": "CLE",
+      "rating": 1462.3,
       "rank": 24,
       "rank_change": 0
     },
     {
-      "team": "NO",
-      "rating": 1461.0,
+      "team": "MIA",
+      "rating": 1456.4,
       "rank": 25,
       "rank_change": 0
     },
     {
-      "team": "WAS",
-      "rating": 1457.6,
+      "team": "CAR",
+      "rating": 1455.9,
       "rank": 26,
       "rank_change": 0
     },
     {
-      "team": "CLE",
-      "rating": 1452.8,
+      "team": "LV",
+      "rating": 1452.1,
       "rank": 27,
       "rank_change": 0
     },
     {
-      "team": "LV",
-      "rating": 1440.6,
+      "team": "NO",
+      "rating": 1449.5,
       "rank": 28,
       "rank_change": 0
     },
     {
       "team": "NYG",
-      "rating": 1434.1,
+      "rating": 1441.9,
       "rank": 29,
       "rank_change": 0
     },
     {
       "team": "ARI",
-      "rating": 1430.5,
+      "rating": 1424.7,
       "rank": 30,
       "rank_change": 0
     },
     {
       "team": "NYJ",
-      "rating": 1424.7,
+      "rating": 1418.8,
       "rank": 31,
       "rank_change": 0
     },
     {
       "team": "TEN",
-      "rating": 1391.9,
+      "rating": 1383.9,
       "rank": 32,
       "rank_change": 0
     }
@@ -390,388 +390,388 @@
   "geloac": [
     {
       "team": "BUF",
-      "rating": 1560.3,
+      "rating": 1565.0,
       "rank": 1,
       "rank_change": 0
     },
     {
       "team": "SEA",
-      "rating": 1560.0,
+      "rating": 1557.0,
       "rank": 2,
       "rank_change": 0
     },
     {
-      "team": "LA",
-      "rating": 1542.9,
+      "team": "SF",
+      "rating": 1544.3,
       "rank": 3,
       "rank_change": 0
     },
     {
-      "team": "BAL",
-      "rating": 1540.5,
+      "team": "LA",
+      "rating": 1542.1,
       "rank": 4,
       "rank_change": 0
     },
     {
-      "team": "SF",
-      "rating": 1540.5,
+      "team": "BAL",
+      "rating": 1541.6,
       "rank": 5,
       "rank_change": 0
     },
     {
-      "team": "PHI",
-      "rating": 1538.9,
+      "team": "MIN",
+      "rating": 1541.4,
       "rank": 6,
       "rank_change": 0
     },
     {
-      "team": "DEN",
-      "rating": 1535.2,
+      "team": "JAX",
+      "rating": 1537.1,
       "rank": 7,
       "rank_change": 0
     },
     {
-      "team": "MIN",
-      "rating": 1534.1,
+      "team": "DEN",
+      "rating": 1536.6,
       "rank": 8,
       "rank_change": 0
     },
     {
       "team": "DET",
-      "rating": 1532.9,
+      "rating": 1536.4,
       "rank": 9,
       "rank_change": 0
     },
     {
-      "team": "NE",
-      "rating": 1531.3,
+      "team": "KC",
+      "rating": 1536.2,
       "rank": 10,
       "rank_change": 0
     },
     {
-      "team": "JAX",
-      "rating": 1528.3,
+      "team": "PHI",
+      "rating": 1529.2,
       "rank": 11,
       "rank_change": 0
     },
     {
-      "team": "KC",
-      "rating": 1527.7,
+      "team": "NE",
+      "rating": 1522.4,
       "rank": 12,
       "rank_change": 0
     },
     {
-      "team": "HOU",
-      "rating": 1513.9,
+      "team": "CHI",
+      "rating": 1517.5,
       "rank": 13,
       "rank_change": 0
     },
     {
-      "team": "CIN",
-      "rating": 1512.5,
+      "team": "HOU",
+      "rating": 1512.2,
       "rank": 14,
       "rank_change": 0
     },
     {
-      "team": "PIT",
-      "rating": 1508.0,
+      "team": "CIN",
+      "rating": 1511.9,
       "rank": 15,
       "rank_change": 0
     },
     {
-      "team": "CHI",
-      "rating": 1507.6,
+      "team": "PIT",
+      "rating": 1509.2,
       "rank": 16,
       "rank_change": 0
     },
     {
       "team": "GB",
-      "rating": 1505.2,
+      "rating": 1505.6,
       "rank": 17,
       "rank_change": 0
     },
     {
       "team": "LAC",
-      "rating": 1497.3,
+      "rating": 1492.8,
       "rank": 18,
       "rank_change": 0
     },
     {
       "team": "DAL",
-      "rating": 1487.6,
+      "rating": 1486.0,
       "rank": 19,
-      "rank_change": 0
-    },
-    {
-      "team": "TB",
-      "rating": 1487.0,
-      "rank": 20,
       "rank_change": 0
     },
     {
       "team": "ATL",
       "rating": 1483.5,
+      "rank": 20,
+      "rank_change": 0
+    },
+    {
+      "team": "TB",
+      "rating": 1479.5,
       "rank": 21,
       "rank_change": 0
     },
     {
       "team": "IND",
-      "rating": 1478.1,
+      "rating": 1479.4,
       "rank": 22,
       "rank_change": 0
     },
     {
-      "team": "NO",
-      "rating": 1476.6,
+      "team": "WAS",
+      "rating": 1472.4,
       "rank": 23,
       "rank_change": 0
     },
     {
-      "team": "WAS",
-      "rating": 1469.0,
+      "team": "NO",
+      "rating": 1467.9,
       "rank": 24,
       "rank_change": 0
     },
     {
-      "team": "MIA",
-      "rating": 1461.5,
+      "team": "LV",
+      "rating": 1463.8,
       "rank": 25,
       "rank_change": 0
     },
     {
       "team": "CAR",
-      "rating": 1458.8,
+      "rating": 1458.1,
       "rank": 26,
       "rank_change": 0
     },
     {
       "team": "NYG",
-      "rating": 1458.5,
+      "rating": 1457.7,
       "rank": 27,
       "rank_change": 0
     },
     {
       "team": "ARI",
-      "rating": 1458.2,
+      "rating": 1454.3,
       "rank": 28,
       "rank_change": 0
     },
     {
-      "team": "LV",
-      "rating": 1454.7,
+      "team": "CLE",
+      "rating": 1452.7,
       "rank": 29,
       "rank_change": 0
     },
     {
-      "team": "CLE",
-      "rating": 1451.6,
+      "team": "MIA",
+      "rating": 1452.4,
       "rank": 30,
       "rank_change": 0
     },
     {
       "team": "NYJ",
-      "rating": 1446.1,
+      "rating": 1442.3,
       "rank": 31,
       "rank_change": 0
     },
     {
       "team": "TEN",
-      "rating": 1411.6,
+      "rating": 1411.5,
       "rank": 32,
       "rank_change": 0
     }
   ],
-  "updated_at": "2026-09-25T05:58:22.158728+00:00",
+  "updated_at": "2026-10-01T00:13:59.224359+00:00",
   "mlelo": [
     {
-      "team": "PHI",
-      "rating": 1648.1,
-      "rank": 1,
-      "rank_change": 0
-    },
-    {
       "team": "BUF",
-      "rating": 1638.7,
-      "rank": 2,
-      "rank_change": 0
+      "rating": 1643.6,
+      "rank": 1,
+      "rank_change": 1
     },
     {
-      "team": "SEA",
-      "rating": 1614.6,
-      "rank": 3,
-      "rank_change": 0
+      "team": "PHI",
+      "rating": 1635.8,
+      "rank": 2,
+      "rank_change": -1
     },
     {
       "team": "MIN",
-      "rating": 1602.3,
-      "rank": 4,
-      "rank_change": 0
+      "rating": 1608.8,
+      "rank": 3,
+      "rank_change": 1
     },
     {
       "team": "DET",
-      "rating": 1598.9,
+      "rating": 1602.9,
+      "rank": 4,
+      "rank_change": 1
+    },
+    {
+      "team": "SEA",
+      "rating": 1600.3,
       "rank": 5,
-      "rank_change": 0
+      "rank_change": -2
     },
     {
       "team": "DEN",
-      "rating": 1582.2,
+      "rating": 1591.1,
       "rank": 6,
       "rank_change": 0
     },
     {
       "team": "KC",
-      "rating": 1578.7,
+      "rating": 1584.9,
       "rank": 7,
       "rank_change": 0
     },
     {
       "team": "SF",
-      "rating": 1574.2,
+      "rating": 1577.2,
       "rank": 8,
       "rank_change": 0
     },
     {
       "team": "PIT",
-      "rating": 1566.2,
+      "rating": 1576.4,
       "rank": 9,
       "rank_change": 0
     },
     {
       "team": "BAL",
-      "rating": 1558.8,
+      "rating": 1568.1,
       "rank": 10,
       "rank_change": 0
     },
     {
       "team": "LA",
-      "rating": 1550.5,
+      "rating": 1541.9,
       "rank": 11,
       "rank_change": 0
     },
     {
-      "team": "HOU",
-      "rating": 1533.2,
-      "rank": 12,
-      "rank_change": 0
-    },
-    {
-      "team": "CIN",
-      "rating": 1527.3,
-      "rank": 13,
-      "rank_change": 0
-    },
-    {
       "team": "GB",
-      "rating": 1521.4,
-      "rank": 14,
-      "rank_change": 0
+      "rating": 1521.7,
+      "rank": 12,
+      "rank_change": 2
     },
     {
-      "team": "DAL",
-      "rating": 1512.9,
-      "rank": 15,
-      "rank_change": 0
+      "team": "HOU",
+      "rating": 1521.1,
+      "rank": 13,
+      "rank_change": -1
     },
     {
       "team": "JAX",
-      "rating": 1509.5,
-      "rank": 16,
-      "rank_change": 0
+      "rating": 1518.3,
+      "rank": 14,
+      "rank_change": 2
+    },
+    {
+      "team": "CIN",
+      "rating": 1517.2,
+      "rank": 15,
+      "rank_change": -2
     },
     {
       "team": "LAC",
-      "rating": 1508.6,
+      "rating": 1504.2,
+      "rank": 16,
+      "rank_change": 1
+    },
+    {
+      "team": "DAL",
+      "rating": 1504.1,
       "rank": 17,
-      "rank_change": 0
+      "rank_change": -2
     },
     {
       "team": "NE",
-      "rating": 1493.3,
+      "rating": 1484.4,
       "rank": 18,
       "rank_change": 0
     },
     {
       "team": "CHI",
-      "rating": 1471.6,
+      "rating": 1483.6,
       "rank": 19,
       "rank_change": 0
     },
     {
-      "team": "TB",
-      "rating": 1466.1,
-      "rank": 20,
-      "rank_change": 0
-    },
-    {
       "team": "WAS",
-      "rating": 1457.5,
-      "rank": 21,
-      "rank_change": 0
-    },
-    {
-      "team": "ATL",
-      "rating": 1456.8,
-      "rank": 22,
-      "rank_change": 0
-    },
-    {
-      "team": "MIA",
-      "rating": 1451.3,
-      "rank": 23,
-      "rank_change": 0
+      "rating": 1471.8,
+      "rank": 20,
+      "rank_change": 1
     },
     {
       "team": "IND",
-      "rating": 1447.9,
-      "rank": 24,
-      "rank_change": 0
+      "rating": 1459.8,
+      "rank": 21,
+      "rank_change": 3
+    },
+    {
+      "team": "TB",
+      "rating": 1459.7,
+      "rank": 22,
+      "rank_change": -2
+    },
+    {
+      "team": "ATL",
+      "rating": 1456.7,
+      "rank": 23,
+      "rank_change": -1
     },
     {
       "team": "CLE",
-      "rating": 1442.7,
+      "rating": 1451.2,
+      "rank": 24,
+      "rank_change": 1
+    },
+    {
+      "team": "MIA",
+      "rating": 1445.6,
       "rank": 25,
-      "rank_change": 0
+      "rank_change": -2
     },
     {
       "team": "CAR",
-      "rating": 1422.2,
+      "rating": 1413.0,
       "rank": 26,
       "rank_change": 0
     },
     {
       "team": "NO",
-      "rating": 1415.4,
+      "rating": 1402.9,
       "rank": 27,
       "rank_change": 0
     },
     {
-      "team": "NYG",
-      "rating": 1387.7,
+      "team": "LV",
+      "rating": 1398.4,
       "rank": 28,
-      "rank_change": 0
+      "rank_change": 1
     },
     {
-      "team": "LV",
-      "rating": 1386.2,
+      "team": "NYG",
+      "rating": 1393.3,
       "rank": 29,
-      "rank_change": 0
+      "rank_change": -1
     },
     {
       "team": "NYJ",
-      "rating": 1383.3,
+      "rating": 1379.3,
       "rank": 30,
       "rank_change": 0
     },
     {
       "team": "ARI",
-      "rating": 1366.1,
+      "rating": 1362.9,
       "rank": 31,
       "rank_change": 0
     },
     {
       "team": "TEN",
-      "rating": 1326.3,
+      "rating": 1319.8,
       "rank": 32,
       "rank_change": 0
     }
