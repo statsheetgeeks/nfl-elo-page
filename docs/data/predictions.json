@@ -1,147 +1,137 @@
 {
   "season": 2026,
-  "week": 10,
-  "generated_at": "2026-11-12T02:02:31.022553+00:00",
+  "week": 11,
+  "generated_at": "2026-11-19T02:05:57.524792+00:00",
   "games": [
     {
-      "event_id": "2026_10_WAS_NYG",
-      "date": "2026-11-12",
-      "home_team": "NYG",
-      "away_team": "WAS",
-      "home_qb": "J.J. McCarthy",
-      "away_qb": "Jayden Daniels",
-      "predicted_winner": "NYG",
-      "predicted_prob": 0.563
-    },
-    {
-      "event_id": "2026_10_NE_DET",
-      "date": "2026-11-15",
-      "home_team": "DET",
-      "away_team": "NE",
-      "home_qb": "Jared Goff",
-      "away_qb": "Drake Maye",
-      "predicted_winner": "DET",
-      "predicted_prob": 0.587
-    },
-    {
-      "event_id": "2026_10_KC_ATL",
-      "date": "2026-11-15",
-      "home_team": "ATL",
-      "away_team": "KC",
-      "home_qb": "Michael Penix Jr.",
-      "away_qb": "Patrick Mahomes",
-      "predicted_winner": "KC",
-      "predicted_prob": 0.562
-    },
-    {
-      "event_id": "2026_10_HOU_CLE",
-      "date": "2026-11-15",
-      "home_team": "CLE",
-      "away_team": "HOU",
-      "home_qb": "Deshaun Watson",
-      "away_qb": "C.J. Stroud",
+      "event_id": "2026_11_IND_HOU",
+      "date": "2026-11-19",
+      "home_team": "HOU",
+      "away_team": "IND",
+      "home_qb": "C.J. Stroud",
+      "away_qb": "Daniel Jones",
       "predicted_winner": "HOU",
-      "predicted_prob": 0.544
+      "predicted_prob": 0.624
     },
     {
-      "event_id": "2026_10_MIN_GB",
-      "date": "2026-11-15",
-      "home_team": "GB",
-      "away_team": "MIN",
-      "home_qb": "Jordan Love",
-      "away_qb": "Kirk Cousins",
-      "predicted_winner": "GB",
-      "predicted_prob": 0.53
-    },
-    {
-      "event_id": "2026_10_MIA_IND",
-      "date": "2026-11-15",
-      "home_team": "IND",
+      "event_id": "2026_11_MIA_BUF",
+      "date": "2026-11-22",
+      "home_team": "BUF",
       "away_team": "MIA",
-      "home_qb": "Daniel Jones",
+      "home_qb": "Josh Allen",
       "away_qb": "Kyle McCord",
-      "predicted_winner": "IND",
+      "predicted_winner": "BUF",
+      "predicted_prob": 0.756
+    },
+    {
+      "event_id": "2026_11_BAL_CAR",
+      "date": "2026-11-22",
+      "home_team": "CAR",
+      "away_team": "BAL",
+      "home_qb": "Bryce Young",
+      "away_qb": "Jacoby Brissett",
+      "predicted_winner": "BAL",
+      "predicted_prob": 0.512
+    },
+    {
+      "event_id": "2026_11_NO_CHI",
+      "date": "2026-11-22",
+      "home_team": "CHI",
+      "away_team": "NO",
+      "home_qb": "Caleb Williams",
+      "away_qb": "Tyler Shough",
+      "predicted_winner": "CHI",
+      "predicted_prob": 0.683
+    },
+    {
+      "event_id": "2026_11_TEN_DAL",
+      "date": "2026-11-22",
+      "home_team": "DAL",
+      "away_team": "TEN",
+      "home_qb": "Dak Prescott",
+      "away_qb": "Cam Ward",
+      "predicted_winner": "DAL",
+      "predicted_prob": 0.667
+    },
+    {
+      "event_id": "2026_11_TB_DET",
+      "date": "2026-11-22",
+      "home_team": "DET",
+      "away_team": "TB",
+      "home_qb": "Jared Goff",
+      "away_qb": "Baker Mayfield",
+      "predicted_winner": "DET",
+      "predicted_prob": 0.653
+    },
+    {
+      "event_id": "2026_11_ARI_KC",
+      "date": "2026-11-22",
+      "home_team": "KC",
+      "away_team": "ARI",
+      "home_qb": "Patrick Mahomes",
+      "away_qb": "Carson Beck",
+      "predicted_winner": "KC",
+      "predicted_prob": 0.71
+    },
+    {
+      "event_id": "2026_11_JAX_NYG",
+      "date": "2026-11-22",
+      "home_team": "NYG",
+      "away_team": "JAX",
+      "home_qb": "J.J. McCarthy",
+      "away_qb": "Trevor Lawrence",
+      "predicted_winner": "JAX",
+      "predicted_prob": 0.597
+    },
+    {
+      "event_id": "2026_11_NYJ_LAC",
+      "date": "2026-11-22",
+      "home_team": "LAC",
+      "away_team": "NYJ",
+      "home_qb": "Justin Herbert",
+      "away_qb": "Geno Smith",
+      "predicted_winner": "LAC",
+      "predicted_prob": 0.629
+    },
+    {
+      "event_id": "2026_11_LV_DEN",
+      "date": "2026-11-22",
+      "home_team": "DEN",
+      "away_team": "LV",
+      "home_qb": "Bo Nix",
+      "away_qb": "Fernando Mendoza",
+      "predicted_winner": "DEN",
+      "predicted_prob": 0.73
+    },
+    {
+      "event_id": "2026_11_PIT_PHI",
+      "date": "2026-11-22",
+      "home_team": "PHI",
+      "away_team": "PIT",
+      "home_qb": "Joe Milton III",
+      "away_qb": "Aaron Rodgers",
+      "predicted_winner": "PIT",
+      "predicted_prob": 0.533
+    },
+    {
+      "event_id": "2026_11_MIN_SF",
+      "date": "2026-11-22",
+      "home_team": "SF",
+      "away_team": "MIN",
+      "home_qb": "Brock Purdy",
+      "away_qb": "Kirk Cousins",
+      "predicted_winner": "SF",
       "predicted_prob": 0.556
     },
     {
-      "event_id": "2026_10_CAR_NO",
-      "date": "2026-11-15",
-      "home_team": "NO",
-      "away_team": "CAR",
-      "home_qb": "Tyler Shough",
-      "away_qb": "Bryce Young",
-      "predicted_winner": "NO",
-      "predicted_prob": 0.53
-    },
-    {
-      "event_id": "2026_10_BUF_NYJ",
-      "date": "2026-11-15",
-      "home_team": "NYJ",
-      "away_team": "BUF",
-      "home_qb": "Geno Smith",
-      "away_qb": "Josh Allen",
-      "predicted_winner": "BUF",
-      "predicted_prob": 0.715
-    },
-    {
-      "event_id": "2026_10_JAX_TEN",
-      "date": "2026-11-15",
-      "home_team": "TEN",
-      "away_team": "JAX",
-      "home_qb": "Cam Ward",
-      "away_qb": "Trevor Lawrence",
-      "predicted_winner": "JAX",
-      "predicted_prob": 0.688
-    },
-    {
-      "event_id": "2026_10_LA_ARI",
-      "date": "2026-11-15",
-      "home_team": "ARI",
-      "away_team": "LA",
-      "home_qb": "Carson Beck",
-      "away_qb": "Matthew Stafford",
-      "predicted_winner": "LA",
-      "predicted_prob": 0.631
-    },
-    {
-      "event_id": "2026_10_SEA_LV",
-      "date": "2026-11-15",
-      "home_team": "LV",
-      "away_team": "SEA",
-      "home_qb": "Fernando Mendoza",
-      "away_qb": "Sam Darnold",
-      "predicted_winner": "SEA",
-      "predicted_prob": 0.634
-    },
-    {
-      "event_id": "2026_10_SF_DAL",
-      "date": "2026-11-15",
-      "home_team": "DAL",
-      "away_team": "SF",
-      "home_qb": "Dak Prescott",
-      "away_qb": "Brock Purdy",
-      "predicted_winner": "SF",
-      "predicted_prob": 0.577
-    },
-    {
-      "event_id": "2026_10_PIT_CIN",
-      "date": "2026-11-15",
-      "home_team": "CIN",
-      "away_team": "PIT",
-      "home_qb": "Joe Burrow",
-      "away_qb": "Aaron Rodgers",
+      "event_id": "2026_11_CIN_WAS",
+      "date": "2026-11-23",
+      "home_team": "WAS",
+      "away_team": "CIN",
+      "home_qb": "Jayden Daniels",
+      "away_qb": "Joe Burrow",
       "predicted_winner": "CIN",
-      "predicted_prob": 0.522
-    },
-    {
-      "event_id": "2026_10_LAC_BAL",
-      "date": "2026-11-16",
-      "home_team": "BAL",
-      "away_team": "LAC",
-      "home_qb": "Jacoby Brissett",
-      "away_qb": "Justin Herbert",
-      "predicted_winner": "BAL",
-      "predicted_prob": 0.619
+      "predicted_prob": 0.57
     }
   ]
 }
