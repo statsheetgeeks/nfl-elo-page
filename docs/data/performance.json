@@ -1,37 +1,37 @@
 {
   "last_week": {
-    "wins": 9,
+    "wins": 8,
     "losses": 5,
-    "accuracy": 0.643,
-    "n": 14
+    "accuracy": 0.615,
+    "n": 13
   },
   "season": {
-    "wins": 73,
-    "losses": 44,
-    "accuracy": 0.624,
-    "n": 117
+    "wins": 81,
+    "losses": 49,
+    "accuracy": 0.623,
+    "n": 130
   },
   "confidence_buckets": [
     {
       "label": "50-60%",
-      "wins": 39,
-      "losses": 35,
-      "accuracy": 0.527,
-      "n": 74
+      "wins": 40,
+      "losses": 39,
+      "accuracy": 0.506,
+      "n": 79
     },
     {
       "label": "60-70%",
-      "wins": 28,
-      "losses": 8,
-      "accuracy": 0.778,
-      "n": 36
+      "wins": 32,
+      "losses": 9,
+      "accuracy": 0.78,
+      "n": 41
     },
     {
       "label": "70-80%",
-      "wins": 6,
+      "wins": 9,
       "losses": 1,
-      "accuracy": 0.857,
-      "n": 7
+      "accuracy": 0.9,
+      "n": 10
     },
     {
       "label": "80-100%",
